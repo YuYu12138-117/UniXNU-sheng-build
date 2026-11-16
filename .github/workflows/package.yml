@@ -23,6 +23,10 @@ on:
       data_seed_sha256:
         description: "Required SHA-256 when data_seed_url is supplied"
         type: string
+      chip_id:
+        description: "Optional 8-hex platform seed; overrides the repository secret"
+        type: string
+        default: ""
 
 permissions:
   contents: read
@@ -75,7 +79,7 @@ jobs:
           [ "$ok" = 1 ]
       - name: platform seed
         env:
-          seed: ${{ secrets.UNIXNU_UNIQUE_CHIP_ID }}
+          seed: ${{ inputs.chip_id || secrets.UNIXNU_UNIQUE_CHIP_ID }}
         run: |
           if ! [[ "$seed" =~ ^[0-9a-fA-F]{8}$ ]]; then
             echo 'Set the repository secret UNIXNU_UNIQUE_CHIP_ID: the platform seed of the device, 8 hex digits.' >&2
@@ -84,7 +88,7 @@ jobs:
       - name: seed cache identity
         id: seed-key
         env:
-          SEED: ${{ secrets.UNIXNU_UNIQUE_CHIP_ID }}
+          SEED: ${{ inputs.chip_id || secrets.UNIXNU_UNIQUE_CHIP_ID }}
         run: |
           python3 - <<'PY'
           import hashlib, os
@@ -246,7 +250,7 @@ jobs:
       - name: package
         working-directory: device
         env:
-          UNIXNU_UNIQUE_CHIP_ID: ${{ secrets.UNIXNU_UNIQUE_CHIP_ID }}
+          UNIXNU_UNIQUE_CHIP_ID: ${{ inputs.chip_id || secrets.UNIXNU_UNIQUE_CHIP_ID }}
           GITHUB_TOKEN: ${{ github.token }}
           INIT_DATA: ${{ inputs.init_data }}
           OS_PROFILE: ${{ inputs.os }}
