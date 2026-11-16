@@ -6,8 +6,6 @@ name: package
 # artifacts belong to one device alone: download them, then delete the run.
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
     inputs:
       os:
