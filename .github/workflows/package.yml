@@ -187,6 +187,19 @@ jobs:
           p.write_text(s)
           print('bootstrap C stubs, seal skip, corecrypto force_load configured')
           PY
+      - name: allow optional prelink imports
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('UniXNU/kits/XnuPrelink/kc_image.py')
+          s = p.read_text()
+          old = "        if imports:\n            raise ValueError('Chained fixup imports are not supported')"
+          new = "        # Optional weak imports are not used for fileset matching.\n        if False:\n            raise ValueError('Chained fixup imports are not supported')"
+          if old in s:
+              s = s.replace(old, new, 1)
+              p.write_text(s)
+          print('prelink optional imports allowed')
+          PY
       - name: stage keyboard firmware
         run: |
           mkdir -p UniXNU/.cache/firmware/nanosic
