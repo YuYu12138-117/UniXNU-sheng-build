@@ -43,7 +43,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: CrossDarwin/UniXNU-sheng
-          ref: 9ae0df2cc6666b03b83a0ca6d5691606b9024c4f
+          ref: ae4cdae4f9581741a7a2c49163e52b37326db9f1 # latest device integration (includes 9ae0 + main)
           path: device
           submodules: recursive
       - uses: actions/checkout@v4
