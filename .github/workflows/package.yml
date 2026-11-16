@@ -218,7 +218,7 @@ jobs:
       - name: stage keyboard firmware
         run: |
           mkdir -p UniXNU/.cache/firmware/nanosic
-          curl -fsSL https://raw.githubusercontent.com/ianchb/sheng-firmware/HEAD/nanosic/MCU_Upgrade.bin -o UniXNU/.cache/firmware/nanosic/MCU_Upgrade.bin
+          curl -fsSL https://raw.githubusercontent.com/ianchb/sheng-firmware/ebdd6f89ee5a/nanosic/MCU_Upgrade.bin -o UniXNU/.cache/firmware/nanosic/MCU_Upgrade.bin
           echo "9eb7213603474d926d3af1124d3c14d63cbfc58ea2f7f7d9fedc088093fd63c5  UniXNU/.cache/firmware/nanosic/MCU_Upgrade.bin" | sha256sum -c -
       - name: stage WiFi firmware
         run: |
