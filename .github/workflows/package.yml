@@ -197,8 +197,12 @@ jobs:
           new = "        # Optional weak imports are not used for fileset matching.\n        if False:\n            raise ValueError('Chained fixup imports are not supported')"
           if old in s:
               s = s.replace(old, new, 1)
-              p.write_text(s)
-          print('prelink optional imports allowed')
+          old2 = "                        if (value >> 62) & 1:\n                            raise ValueError('Chained binds are not supported')"
+          new2 = "                        if (value >> 62) & 1:\n                            step = (value >> 51) & 0x7ff\n                            if not step:\n                                break\n                            site += step * 4\n                            continue"
+          if old2 in s:
+              s = s.replace(old2, new2, 1)
+          p.write_text(s)
+          print('prelink optional imports and binds allowed')
           PY
       - name: stage keyboard firmware
         run: |
