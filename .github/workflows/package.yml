@@ -55,7 +55,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: UniXNU/uefi-sheng
-          ref: b303410c8e40f8db44b3f0f2cbdfdca9c6a765cb # latest uefi-sheng (ABL 8G fix)
+          ref: 7e1dc6e5ffb8ca05aa1c9ae586c1c8d57a965c32 # latest uefi-sheng main (2026-11-16)
           path: uefi-sheng
           submodules: recursive
       - name: tools
