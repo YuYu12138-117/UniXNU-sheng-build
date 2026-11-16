@@ -203,6 +203,10 @@ jobs:
               s = s.replace(old2, new2, 1)
           q = Path('UniXNU/kits/XnuPrelink/fileset_emit.py')
           t = q.read_text()
+          old4 = "    closure, pending = set(), list(roots)"
+          new4 = "    closure, pending = set(), [r for r in roots if not r.startswith('!')]"
+          if old4 in t:
+              t = t.replace(old4, new4, 1)
           old3 = "        pending.extend(entries[identifier].get('OSBundleLibraries') or {})"
           new3 = "        pending.extend(k for k in (entries[identifier].get('OSBundleLibraries') or {}) if not k.startswith('!'))"
           if old3 in t:
