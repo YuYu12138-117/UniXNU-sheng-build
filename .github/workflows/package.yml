@@ -28,12 +28,12 @@ permissions:
   contents: read
 
 concurrency:
-  group: package-${{ github.ref }}
+  group: package-${{ github.run_id }}
   cancel-in-progress: true
 
 jobs:
   package:
-    runs-on: macos-15-arm64
+    runs-on: macos-15
     timeout-minutes: 360
     steps:
       - uses: actions/checkout@v4
